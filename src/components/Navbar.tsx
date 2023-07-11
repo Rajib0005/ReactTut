@@ -60,7 +60,7 @@ export default function Navbar() {
                         <Link href='/home' paddingTop='4px' underline='none' color='inherit'>Home</Link>
                         </AccessManager>
                         <AccessManager  permission= 'user.dashboard'>
-                        <Link href='/home' paddingTop= '4px' underline='none' color='inherit'>Dashboard</Link>
+                        <Link href='/dashboard' paddingTop= '4px' underline='none' color='inherit'>Dashboard</Link>
                         </AccessManager>
                         <AccessManager permission= 'user.about'>
                         <Link href='/about' paddingTop='4px' underline='none' color='inherit'>About</Link>
