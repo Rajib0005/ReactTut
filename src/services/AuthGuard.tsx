@@ -1,7 +1,6 @@
-import { Navigate, Outlet, useLoaderData, useLocation } from 'react-router-dom'
+import { Navigate, Outlet} from 'react-router-dom'
 import usePermission from '../hooks/usePermission';
 import { Roles } from '../interfaces/ICredentials';
-
 
 
 export const Permission = {
@@ -14,7 +13,7 @@ export type PermissionName = keyof typeof Permission;
 
 export default function AuthGuard({permission}: {permission:PermissionName}) {
   const { isPermission } = usePermission();
-  if (!isPermission(permission)) return <Navigate to='/home' />
+  if (!isPermission(permission)) return <Navigate to = '/home' />
   return (
     <>
       <Outlet />

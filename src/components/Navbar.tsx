@@ -4,13 +4,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import IconButton from '@mui/material/IconButton';
-import { InputBase, Link, Tooltip, alpha, styled } from '@mui/material';
+import { AlertProps, InputBase, Link, Snackbar, Tooltip, alpha, styled } from '@mui/material';
+import MuiAlert from '@mui/material/Alert'
 import SearchIcon from '@mui/icons-material/Search';
 import useAuthentication from '../hooks/useAuthentication';
 import AccessManager from '../services/AccessManager';
-import About from '../pages/About';
+import React, { useState } from 'react';
 export default function Navbar() {
-    const {logout} = useAuthentication()
+    const { logout } = useAuthentication()
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -37,6 +38,26 @@ export default function Navbar() {
         justifyContent: 'center',
     }));
 
+    const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+        props,
+        ref,
+    ) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
+
+    const [open, setOpen] = useState(false);
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
         color: 'inherit',
         '& .MuiInputBase-input': {
@@ -54,16 +75,32 @@ export default function Navbar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar>
                 <Toolbar >
-                    <Typography component="div" sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-start', gap: '30px'}}>
+                    <Typography component="div" sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-start', gap: '30px' }}>
                         <AccessManager permission='user.home'>
-                        <Link href='/home' variant='h6' underline='none' color='inherit'>GeoTech</Link>
-                        <Link href='/home' paddingTop='4px' underline='none' color='inherit'>Home</Link>
+                            {
+                                (hasAccess) => (
+                                    hasAccess ?
+                                    (<>
+                                        {console.log(hasAccess)}
+                                        <Link href='/home' variant='h6' underline='none' color='inherit'>GeoTech</Link>
+                                        <Link href='/home' paddingTop='4px' underline='none' color='inherit'>Home</Link>
+                                    </>) : 
+                                    (<>
+                                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                                            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                                                Sorrry! You do not have access !
+                                            </Alert>
+                                        </Snackbar>
+                                    </>)
+                                )
+                            }    
                         </AccessManager>
-                        <AccessManager  permission= 'user.dashboard'>
-                        <Link href='/dashboard' paddingTop= '4px' underline='none' color='inherit'>Dashboard</Link>
+                        <AccessManager permission='user.dashboard'>
+                            <Link href='/dashboard' paddingTop='4px' underline='none' color='inherit'>Dashboard</Link>
                         </AccessManager>
-                        <AccessManager permission= 'user.about'>
-                        <Link href='/about' paddingTop='4px' underline='none' color='inherit'>About</Link>
+                            
+                        <AccessManager permission='user.about'>
+                            <Link href='/about' paddingTop='4px' underline='none' color='inherit'>About</Link>
                         </AccessManager>
                     </Typography>
                     <Search>
