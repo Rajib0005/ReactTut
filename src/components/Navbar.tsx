@@ -81,9 +81,10 @@ export default function Navbar() {
                                 (hasAccess) => (
                                     hasAccess ?
                                     (<>
-                                        {console.log(hasAccess)}
+                                        {/* {console.log(hasAccess)} */}
                                         <Link href='/home' variant='h6' underline='none' color='inherit'>GeoTech</Link>
                                         <Link href='/home' paddingTop='4px' underline='none' color='inherit'>Home</Link>
+                                        <Link href='/todos' paddingTop='4px' underline='none' color='inherit'>Todos</Link>
                                     </>) : 
                                     (<>
                                     </>)

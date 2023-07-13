@@ -15,7 +15,6 @@ export default function AccessManager({permission,children}: RenderProps ) {
     <>
     {
       //if permission is valid it would render as a component and also as callback function
-      
       isPermission(permission) && (children)
     }
     </>

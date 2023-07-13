@@ -3,7 +3,7 @@ export interface ICredential {
     password: string,
     role : Roles
 }
-
+ 
 export enum Roles {
     Admin,
     User

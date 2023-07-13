@@ -8,6 +8,7 @@ import About from '../pages/About';
 import Navbar from '../components/Navbar';
 import Home from '../pages/Home';
 import AuthGuard from './AuthGuard';
+import Todo from '../pages/Todo';
 
 
 
@@ -38,7 +39,10 @@ const RoutesHandler = (props: IRouteHandlerProps) => {
                         <Route element={<AuthGuard permission='user.about' />}>
                             <Route path='about' element={<About />} />
                         </Route>
-                        <Route path='home' element={<Home />} />
+                        <Route element={<AuthGuard permission='user.home' />}>
+                            <Route path='home' element={<Home />} />
+                        </Route>
+                            <Route path='todos' element={<Todo />} />
                     </Route>
                 </Route>
             </Router>
