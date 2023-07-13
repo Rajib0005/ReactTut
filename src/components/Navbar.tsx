@@ -86,11 +86,6 @@ export default function Navbar() {
                                         <Link href='/home' paddingTop='4px' underline='none' color='inherit'>Home</Link>
                                     </>) : 
                                     (<>
-                                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                                            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                                                Sorrry! You do not have access !
-                                            </Alert>
-                                        </Snackbar>
                                     </>)
                                 )
                             }    
