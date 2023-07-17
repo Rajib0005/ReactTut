@@ -1,49 +1,42 @@
-import { Avatar, Box, Card, CardContent, CardMedia, Container, CssBaseline, Grid, InputAdornment, TextField, ThemeProvider, Typography, createTheme } from '@mui/material'
+import { Grid } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import AccessManager from '../services/AccessManager'
-import todoImage from '../assets/images/todo_task_image.jpg'
-import { Controller } from 'react-hook-form';
-import { AccountCircle } from '@mui/icons-material';
+import TodoCard from '../components/TodoCard'
+import TodoTabs from '../components/TodoTabs'
+import NewTodo from '../components/NewTodo'
+import { useContext } from 'react'
+import { TodoContext } from '../contexts/TodoContext'
+import EmptyPage from './EmptyPage'
 
-const defaultTheme = createTheme();
 export default function Todo() {
+    const {todo} = useContext(TodoContext)
     return (
-        <div>
-            <Grid sx={{ marginTop: '40px' }} container spacing={2} >
+        <div className='todo-container'>
+            <Grid sx={{ marginTop: '40px' }} container spacing={3} item xs={8}>
                 <AccessManager permission='user.todos'>
                     {
                         (hasAccess) => (
                             hasAccess ?
                                 (<>
-                                    {console.log(hasAccess)}
-                                    <Grid item xs={6}>
-                                        <p>Create New Todo</p>
-                                    </Grid>
+                                    <TodoTabs />
                                 </>) :
-                                (<>
-                                    <Grid item xs={6}>
-                                        <Card sx={{ maxWidth: 345 }}>
-                                            <CardMedia
-                                                sx={{ height: 140, padding: '40px' }}
-                                                image={todoImage}
-                                                title="green iguana"
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h4" component="div">
-                                                    Your TodoList
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    The advantages of having a to-do list include increased productivity,improved time management, enhanced organization, reduced stress levels,and a sense of accomplishment.
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                </>)
+                                (
+                                    <TodoCard />
+                                )
                         )
                     }
                 </AccessManager>
-                <Grid item xs={4}>
-                    <p>Create New Todos</p>
+                <Grid item xs={8}>
+                    {
+                        todo.length ? (
+                            
+                            todo.map((todo)=> 
+                            <ul>
+                                <li><NewTodo todo={todo} /></li>    
+                            </ul>
+                            )
+                        ): <EmptyPage />
+                    }
                 </Grid>
             </Grid>
             <Outlet />

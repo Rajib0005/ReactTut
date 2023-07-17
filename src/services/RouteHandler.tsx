@@ -9,6 +9,7 @@ import Navbar from '../components/Navbar';
 import Home from '../pages/Home';
 import AuthGuard from './AuthGuard';
 import Todo from '../pages/Todo';
+import { TodoProvider } from '../contexts/TodoContext';
 
 
 
@@ -42,7 +43,9 @@ const RoutesHandler = (props: IRouteHandlerProps) => {
                         <Route element={<AuthGuard permission='user.home' />}>
                             <Route path='home' element={<Home />} />
                         </Route>
+                        <Route element={<TodoProvider />}>
                             <Route path='todos' element={<Todo />} />
+                        </Route>
                     </Route>
                 </Route>
             </Router>

@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import IconButton from '@mui/material/IconButton';
-import { AlertProps, InputBase, Link, Snackbar, Tooltip, alpha, styled } from '@mui/material';
+import { AlertProps, InputBase, Link, Tooltip, alpha, styled } from '@mui/material';
 import MuiAlert from '@mui/material/Alert'
 import SearchIcon from '@mui/icons-material/Search';
 import useAuthentication from '../hooks/useAuthentication';
